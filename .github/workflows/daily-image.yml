@@ -29,7 +29,7 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: python dc_image_fetcher.py
 
-           - name: Commit and Push Image
+      - name: Commit and Push Image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
