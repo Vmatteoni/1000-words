@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1000 Words</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>1000 Words</h1>
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    const imageFolder = 'images';
+    const today = new Date();
+    const startDate = new Date('2025-01-01'); // Change to your first photo's date
+
+    const dateToString = (date) => date.toISOString().split('T')[0];
+
+    const gallery = document.getElementById('gallery');
+
+    for (let d = today; d >= startDate; d.setDate(d.getDate() - 1)) {
+      const dateStr = dateToString(d);
+      const img = document.createElement('img');
+      img.src = `${imageFolder}/dc_photo_${dateStr}.jpg`;
+      img.alt = dateStr;
+      img.onerror = () => img.remove();
+      gallery.appendChild(img);
+    }
+  </script>
+</body>
+</html>
