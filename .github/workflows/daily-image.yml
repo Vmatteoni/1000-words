@@ -1,15 +1,4 @@
 name: Daily Washington DC Image Fetch
-name: Validate PEXELS_API_KEY
-  run: |
-    if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
-      echo "PEXELS_API_KEY is not set."
-      exit 1
-    fi
-# Force GitHub to refresh this workflow
-
-# Triggering workflow recognition
-
-name: Daily Washington DC Image Fetch
 
 on:
   schedule:
@@ -27,6 +16,13 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+
+      - name: Validate PEXELS_API_KEY
+        run: |
+          if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
+            echo "❌ PEXELS_API_KEY secret is not set. Failing workflow."
+            exit 1
+          fi
 
       - name: Install dependencies
         run: pip install requests
