@@ -1,3 +1,9 @@
+- name: Validate PEXELS_API_KEY
+  run: |
+    if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
+      echo "PEXELS_API_KEY is not set."
+      exit 1
+    fi
 # Force GitHub to refresh this workflow
 
 # Triggering workflow recognition
