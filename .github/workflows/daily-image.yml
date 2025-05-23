@@ -1,3 +1,4 @@
+name: Daily Washington DC Image Fetch
 - name: Validate PEXELS_API_KEY
   run: |
     if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
