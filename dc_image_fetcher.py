@@ -1,18 +1,32 @@
 import requests
 import datetime
 import os
+import random
 
-PEXELS_API_KEY = "vJr9V79W3LrPI86EJT0CFkLMjzKWJGcDFiBC8rS5IsEoYmxD4fIRT0ZB"
+PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 HEADERS = {"Authorization": PEXELS_API_KEY}
 
 IMAGE_DIR = "images"
 os.makedirs(IMAGE_DIR, exist_ok=True)
 
 def get_dc_image():
+    # Add some variation to the search terms if desired
+    queries = [
+        "Washington DC street photography",
+        "Washington DC urban",
+        "Capitol Hill",
+        "National Mall DC",
+        "Georgetown DC"
+    ]
+    query = random.choice(queries)
+
+    # Random page selection to avoid repeated images
+    page = random.randint(1, 10)  # Adjust based on total available results
+
     response = requests.get(
         "https://api.pexels.com/v1/search",
         headers=HEADERS,
-        params={"query": "Washington DC street photography", "per_page": 1}
+        params={"query": query, "per_page": 1, "page": page}
     )
     data = response.json()
     if not data['photos']:
