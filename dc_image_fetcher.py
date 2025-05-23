@@ -1,20 +1,20 @@
-HEADERS = {"Authorization": PEXELS_API_KEY.strip()}
-PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
-if not PEXELS_API_KEY:
-    raise ValueError("PEXELS_API_KEY environment variable is not set.")
 import requests
 import datetime
 import os
 import random
-
-PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
-HEADERS = {"Authorization": PEXELS_API_KEY}
+import sys
 
 IMAGE_DIR = "images"
 os.makedirs(IMAGE_DIR, exist_ok=True)
 
 def get_dc_image():
-    # Add some variation to the search terms if desired
+    PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
+    if not PEXELS_API_KEY:
+        raise EnvironmentError("❌ PEXELS_API_KEY environment variable is not set. Please set it to proceed.")
+
+    HEADERS = {"Authorization": PEXELS_API_KEY.strip()}
+
+    # Add some variation to the search terms
     queries = [
         "Washington DC street photography",
         "Washington DC urban",
@@ -25,7 +25,7 @@ def get_dc_image():
     query = random.choice(queries)
 
     # Random page selection to avoid repeated images
-    page = random.randint(1, 10)  # Adjust based on total available results
+    page = random.randint(1, 10)
 
     response = requests.get(
         "https://api.pexels.com/v1/search",
