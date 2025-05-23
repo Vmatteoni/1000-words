@@ -1,3 +1,4 @@
+HEADERS = {"Authorization": PEXELS_API_KEY.strip()}
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 if not PEXELS_API_KEY:
     raise ValueError("PEXELS_API_KEY environment variable is not set.")
