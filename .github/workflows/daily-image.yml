@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  fetch-image:
+  fetch-dc-image:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -17,15 +17,17 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install dependencies
+        run: pip install requests
+
       - name: Validate PEXELS_API_KEY
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: |
-          if [ -z "${{ secrets.PEXELS_API_KEY }}" ]; then
+          if [ -z "$PEXELS_API_KEY" ]; then
             echo "❌ PEXELS_API_KEY secret is not set. Failing workflow."
             exit 1
           fi
-
-      - name: Install dependencies
-        run: pip install requests
 
       - name: Run image fetcher
         env:
