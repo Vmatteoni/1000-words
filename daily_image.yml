@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ Needed for force-push
+          fetch-depth: 0
           ref: main
 
       - name: Set up Python
@@ -34,6 +34,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add images/
-          git commit -m "📸 New image for $(date +'%Y-%m-%d')" || echo "No changes"
+          git commit -m "New image for $(date +'%Y-%m-%d')" || echo "Nothing to commit"
+          git pull --rebase origin main || echo "Nothing to pull"
           git push --force
 
