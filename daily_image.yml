@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ✅ Needed for force-push
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,3 +35,4 @@ jobs:
           git add images/
           git commit -m "📸 New image for $(date +'%Y-%m-%d')" || echo "No changes"
           git push --force
+
